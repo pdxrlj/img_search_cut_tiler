@@ -9,7 +9,6 @@ from tile_job import SingleProcessTiling
 
 
 def process_args(args):
-    print(f"args:{args}")
     parser = argparse.ArgumentParser()
     parser.add_argument('-z', dest='zoom', metavar="切片级别", help="瓦片层级如13-15", required=True)
     parser.add_argument('-p', dest="process", metavar="进程数", default=1, help="进程数")
@@ -28,13 +27,12 @@ def process_args(args):
         output_folder = os.path.join(img_path_dir, input_file_name, str(uuid4()))
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
-    print(f"output_folder:{output_folder}")
+    
     return input_file, output_folder, args
 
 
 def main():
     argv = gdal.GeneralCmdLineProcessor(sys.argv)
-    print(f"sys argv:{sys.argv}")
     input_file, output_folder, options = process_args(argv[1:])
     SingleProcessTiling(input_file, output_folder, options)
 
